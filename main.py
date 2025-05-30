@@ -49,10 +49,9 @@ def setup_llm():
             raise ValueError("GROQ_API_KEY not found in environment variables")
         
         return LLM(
-            model="groq/llama-3.1-8b-instant",
+            model="groq/deepseek-r1-distill-llama-70b",
             api_key=os.getenv("GROQ_API_KEY"),
             temperature=0.7,
-            max_tokens=2000,
             timeout=60
         )
     except Exception as e:
