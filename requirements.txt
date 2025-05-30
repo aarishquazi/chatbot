@@ -1,0 +1,8 @@
+streamlit
+langchain
+langchain-groq
+crewai
+duckduckgo-search
+python-dotenv
+requests
+crewai-tools
