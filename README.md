@@ -19,9 +19,13 @@ A powerful, Streamlit-based AI chatbot that leverages **CrewAI** agents and tool
 ## 📦 Project Structure
 
 ai-research-chatbot/
+|
 ├── app.py # Main Streamlit application
+|
 ├── .env # for groq api and serp api key environment variables
+|
 ├── requirements.txt # Python dependencies
+|
 └── README.md # This file
 
 ## 🛠️ Tech Stack
