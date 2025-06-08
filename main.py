@@ -49,7 +49,7 @@ def setup_llm():
             raise ValueError("GROQ_API_KEY not found in environment variables")
         
         return LLM(
-            model="groq/deepseek-r1-distill-llama-70b",
+            model="groq/meta-llama/llama-4-scout-17b-16e-instruct",
             api_key=os.getenv("GROQ_API_KEY"),
             temperature=0.7,
             timeout=60
@@ -69,6 +69,13 @@ def create_research_agent(llm, tools):
             goal="Provide detailed, accurate information with proper source citations and contact details",
             backstory="""
             You are a professional research assistant who:
+            - Check for the historical context of the query if only relevant with the query
+            - Always provides accurate and detailed information
+            - infomration is up-to-date and relevant
+            - Uses web search tools to find current information
+            - searches to up to date information in the current time if specified in the query
+            - try to search for the most recent information available
+            - Scrapes websites for detailed content when necessary
             - Always provides sources for your information
             - Includes contact details when available (names, phone numbers, addresses, emails)
             - Gives comprehensive answers with specific details
@@ -135,15 +142,23 @@ def get_chatbot_response(user_message, agent):
         Current user question: {user_message}
         
         Instructions:
+        - You are a professional research assistant
+        - Use web search tools to find current information
+        - Scrape websites for detailed content when necessary
+        - Always provide sources for your information
+        - If the query is about a specific location, include relevant local information
+        - Try to find the most recent information available
+        - Try to find information that is up-to-date and relevant according the timeframe of the query
         - Provide detailed, helpful information
         - Always include sources and citations
         - If searching for professionals (doctors, lawyers, restaurants, etc.), include:
           * Names of specific people/businesses
           * Contact information (phone, address, email if available)
           * Professional credentials or specialties
-        - Format your response clearly
+        - Format your response clearly Don't Include think in it.
         - End with a "Sources:" section listing all websites/sources used
         - Be specific and comprehensive in your answers
+        - give output in a way that is easy to read and understand and good for the user
         """
         
         task = Task(
